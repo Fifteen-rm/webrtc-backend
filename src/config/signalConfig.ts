@@ -1,10 +1,11 @@
 import { Logger } from "tslog";
-const log: Logger = new Logger({ name: "config logger" });
 import * as dotenv from "dotenv";
+
+const log: Logger = new Logger({ name: "config logger" });
 dotenv.config();
 
-export const getSiganlConfig = (): Twillo => {
-    return new Twillo(
+export const getSiganlConfig = (): TwilioConfig => {
+    return new TwilioConfig(
         new TwilloModel(
             process.env?.TWILIO_ACCOUNT_SID ?? " ", 
             process.env?.TWILIO_API_KEY ?? " ", 
@@ -12,11 +13,11 @@ export const getSiganlConfig = (): Twillo => {
     );
 };
 
-class Twillo {
-    twillo: TwilloModel;
+export class TwilioConfig {
+    twilio: TwilloModel;
 
     constructor(twillo: TwilloModel) {
-        this.twillo = twillo;
+        this.twilio = twillo;
     }
 }
 class TwilloModel {
