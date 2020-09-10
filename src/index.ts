@@ -3,13 +3,14 @@ import * as signalConfig from './config/signalConfig';
 import cors from "cors";
 import { Logger } from "tslog";
 import { videoToken } from './tokens';
-
+import bodyParser from "body-parser";
 
 const log: Logger = new Logger({ name: "index logger" });
 
 const app = express()
 app.use(cors());
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 const sendTokenResponse = (token: any, res: Response) => {
   res.set('Content-Type', 'application/json');
   res.send(
@@ -44,7 +45,7 @@ app.get("/", (req: Request, res: Response) => {
   res.status(200).send("Hello World!");
 })  
 
-app.listen(8000, "0.0.0.0", ()=>{
+app.listen(8000, "127.0.0.1", ()=>{
   log.debug('running server');
 })    
 
